@@ -1,8 +1,8 @@
 {
-  "name": "library-api",
+  "name": "catalogue-produits",
   "version": "1.0.0",
   "type": "module",
-  "description": "Devoir 1 sur library-api",
+  "description": "Devoir 4 sur catalogue Produits",
   "main": "app.js",
   "scripts": {
     "dev": "nodemon app.js"
