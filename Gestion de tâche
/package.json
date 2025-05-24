@@ -1,0 +1,19 @@
+{
+  "name": "catalogue-produits",
+  "version": "1.0.0",
+  "type": "module",
+  "description": "Devoir 4 sur catalogue Produits",
+  "main": "app.js",
+  "scripts": {
+    "dev": "nodemon app.js"
+  },
+  "author": "Dimitri Tedom",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^2.2.0",
+    "csv": "^6.3.11",
+    "express": "^5.1.0",
+    "morgan": "^1.10.0",
+    "nodemon": "^3.1.10"
+  }
+}
