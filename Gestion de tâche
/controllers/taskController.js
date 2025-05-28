@@ -8,43 +8,44 @@ const taskEmitter = new EventEmitter();
 // Promisification des fonctions CSV
 const stringifyAsync = promisify(stringify);
 const parseAsync = promisify(parse);
-
+const readFile = promisify(fs.readFile)
+const writeFile = promisify(fs.writeFile)
 const JSON_FILE_PATH = './databse.json';
 const CSV_FILE_PATH = './databse.csv';
 
 const readJsonFile = async () => {
   try {
-    const data = await fs.readFile(JSON_FILE_PATH, 'utf8');
+    const data = await readFile(JSON_FILE_PATH, 'utf8');
     return JSON.parse(data);
   } catch (error) {
-    if (error.code === 'ENOENT') {
-      await fs.writeFile(JSON_FILE_PATH, '[]', 'utf8');
+    // if (error.code === 'ENOENT') {
+      await writeFile(JSON_FILE_PATH, '[]', 'utf8');
       return [];
-    }
+    // }
     throw error;
   }
 };
 
 const writeJsonFile = async (data) => {
-  await fs.writeFile(JSON_FILE_PATH, JSON.stringify(data, null, 2), 'utf8');
+  await writeFile(JSON_FILE_PATH, JSON.stringify(data, null, 2), 'utf8');
 };
 
 const readCsvFile = async () => {
   try {
-    const data = await fs.readFile(CSV_FILE_PATH, 'utf8');
+    const data = await readFile(CSV_FILE_PATH, 'utf8');
     return await parseAsync(data, { columns: true });
   } catch (error) {
-    if (error.code === 'ENOENT') {
-      await fs.writeFile(CSV_FILE_PATH, '', 'utf8');
+    // if (error.code === 'ENOENT') {
+      await writeFile(CSV_FILE_PATH, '', 'utf8');
       return [];
-    }
+    // }
     throw error;
   }
 };
 
 const writeCsvFile = async (data) => {
   const csvData = await stringifyAsync(data, { header: true });
-  await fs.writeFile(CSV_FILE_PATH, csvData, 'utf8');
+  await writeFile(CSV_FILE_PATH, csvData, 'utf8');
 };
 
 export const createTask = async (req, res) => {
@@ -64,12 +65,10 @@ export const createTask = async (req, res) => {
     tasks.push(newTask);
     await writeJsonFile(tasks);
     
-    // Mise à jour du fichier CSV
     const csvTasks = await readCsvFile();
     csvTasks.push(newTask);
     await writeCsvFile(csvTasks);
     
-    // Émission de l'événement
     taskEmitter.emit('taskCreated', newTask);
     
     res.status(201).json(newTask);

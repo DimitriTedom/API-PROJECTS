@@ -21,7 +21,6 @@ const writeBooks = (books) =>{
 const syncCSV = (books) => {
     const csv = ['id,title,author'].concat(books.map(book => `${book.id},${book.title},${book.author}`)).join('\n');
     fs.writeFileSync(csvPath, csv);
-    //   fs.appendFileSync(csvPath, \n${newBook.id},${newBook.title},${newBook.author});
 }
 const bookController = {
     createBook: (req,res)=>{

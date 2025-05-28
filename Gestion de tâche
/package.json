@@ -1,8 +1,8 @@
 {
-  "name": "catalogue-produits",
+  "name": "gestion-task",
   "version": "1.0.0",
   "type": "module",
-  "description": "Devoir 4 sur catalogue Produits",
+  "description": "Devoir 5 sur Gestion Produits",
   "main": "app.js",
   "scripts": {
     "dev": "nodemon app.js"
