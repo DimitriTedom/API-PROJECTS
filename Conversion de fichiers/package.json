@@ -1,0 +1,19 @@
+{
+  "name": "convert-controller",
+  "version": "1.0.0",
+  "type": "commonjs",
+  "description": "Devoir 6 sur Convert Controller",
+  "main": "app.js",
+  "scripts": {
+    "dev": "nodemon app.js"
+  },
+  "author": "Dimitri Tedom",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^2.2.0",
+    "express": "^5.1.0",
+    "morgan": "^1.10.0",
+    "multer": "^2.0.0",
+    "nodemon": "^3.1.10"
+  }
+}
