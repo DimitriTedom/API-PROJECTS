@@ -86,18 +86,15 @@ export async function getProductsWithPromos(req, res) {
     //  Récupérer les produits
     const products = await readProducts();
     
-    // Construire l'URL des promotions avec query params
     const promoUrl = new URL('https://api.promotions.com/promos');
     Object.entries(req.query).forEach(([key, value]) => {
       promoUrl.searchParams.append(key, value);
     });
     
-    // l'appel externe
     const response = await fetch(promoUrl.toString());
     if (!response.ok) throw new Error('Failed to fetch promotions');
     const promos = await response.json();
     
-    //  Fusionner les données
     const productsWithPromos = products.map(product => {
       const productPromo = promos.find(promo => promo.productId === product.id) || {};
       return { ...product, promo: productPromo.discount || 0 };
